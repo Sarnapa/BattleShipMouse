@@ -1,8 +1,7 @@
 #include <windows.h>
-#include <windowsx.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <tchar.h>
+#include "Resource.h"
 
 #define SHIP_SPEED 10
 #define MISSILE_SPEED -10
@@ -37,8 +36,8 @@ struct Missile
 };
 
 // identyfikatory komunikatow potrzebne do logiki gry
-UINT MissileMissMsg1, MissileTransferMsg1, MissileHitMsg1, MissileMissMsg2, MissileTransferMsg2, MissileHitMsg2,
-	 CanShootMsg1, CanShootMsg2, CannotShootMsg1, CannotShootMsg2;
+UINT MissileMissMsg1, MissileTransferMsg1, MissileHitMsg1, MissileMissMsg2, MissileTransferMsg2, MissileHitMsg2;
+	 //CanShootMsg1, CanShootMsg2, CannotShootMsg1, CannotShootMsg2;
 
 LPCWSTR windowClassName = _T("BattleShip");
 LPCWSTR windowTitle = _T("BattleShip Mouse");
@@ -86,8 +85,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	wc.cbWndExtra = 0;
 	//Identyfikator aplikacji bedacej wlascicielem okna
 	wc.hInstance = hInstance;
-	//Duza Ikonka - na razie domyslna
-	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+	//Duza Ikonka
+	wc.hIcon = (HICON)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON), IMAGE_ICON, 16, 16, 0);;
 	//Kursor myszki - na razie domyslny (strzalka)
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	//Tlo okienka - domyslne szare tlo
@@ -97,7 +96,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//Nazwa klasy
 	wc.lpszClassName = windowClassName;
 	//Mala ikonka
-	wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+	wc.hIconSm = (HICON)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON), IMAGE_ICON, 16, 16, 0);
 
 	//rejestracja klasy
 	if (!RegisterClassEx(&wc))
@@ -126,6 +125,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	MissileMissMsg2 = RegisterWindowMessage((LPCWSTR)("Miss2"));
 	MissileTransferMsg2 = RegisterWindowMessage((LPCWSTR)("Transfer2"));
 	MissileHitMsg2 = RegisterWindowMessage((LPCWSTR)("Hit2"));
+	/*CanShootMsg1 = RegisterWindowMessage((LPCWSTR)("CanShoot1"));
+	CannotShootMsg1 = RegisterWindowMessage((LPCWSTR)("CannotShoot1"));
+	CanShootMsg2 = RegisterWindowMessage((LPCWSTR)("CanShoot2"));
+	CannotShootMsg2 = RegisterWindowMessage((LPCWSTR)("CannotShoot2"));*/
 
 	hdc = GetDC(hwnd);
 	//tworzymy bufor na podwojne buforowanie
