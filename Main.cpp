@@ -271,7 +271,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 						if (missiles[i].left + missiles[i].diameter > shipRect.leftRect &&
 							missiles[i].left + missiles[i].diameter < shipRect.leftRect + shipRect.width)
 						{
-							if (!(missiles[i].top > shipRect.topRect + shipRect.height || missiles[i].top + missiles[i].diameter > shipRect.topRect))
+							if (!(missiles[i].top > shipRect.topRect + shipRect.height || missiles[i].top + missiles[i].diameter < shipRect.topRect))
 							{
 								PostMessage(HWND_BROADCAST, MissileHitMsg1, NULL, NULL);
 								missiles[i].active = false;
